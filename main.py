@@ -51,3 +51,29 @@ with open("GPSCH.txt", mode='r', encoding='UTF-8') as text:
     print(Vn)
     P2 = math.erfc((abs(Vn - 2 * 128 * S2 * (1 - S2))) / (2 * math.sqrt(2 * 128) * S2 * (1 - S2)))
     print(P2)  # 0.42870928611174086
+
+    # Тест на самую длинную последовательность единиц в блоке.
+    lst3 = []
+    for k, v in dic.items():
+        max2 = 1
+        for i in range(len(v)):
+            max1 = 0
+            if v[i] == "1":
+                z = i
+                while v[z: z + 1] == "1":
+                    z += 1
+                    max1 += 1
+            if max1 > max2:
+                max2 = max1
+        lst3.append(max2)
+    print(lst3)
+    v1 = lst3.count(1)
+    v2 = lst3.count(2)
+    v3 = lst3.count(3)
+    v4 = lst3.count(4) + lst3.count(6)
+    X2 = 0
+    X2 += ((v1 - 16 * 0.2148) ** 2) / (16 * 0.2148)
+    X2 += ((v2 - 16 * 0.3672) ** 2) / (16 * 0.3672)
+    X2 += ((v3 - 16 * 0.2305) ** 2) / (16 * 0.2305)
+    X2 += ((v4 - 16 * 0.1875) ** 2) / (16 * 0.1875)
+    print(X2)  # 0.90045395
